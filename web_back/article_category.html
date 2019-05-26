@@ -136,7 +136,7 @@
                <td>{{$value.name}}</td>
                <td>{{$value.slug}}</td>
                <td class="text-center">
-                   <a href="javascript:editTr({&quot;id&quot;:&quot;{{$value.id}}&quot;,&quot;slug&quot;:&quot;uncategorized&quot;,&quot;name&quot;:&quot;未分类&quot;});"
+                   <a href="javascript:editTr({&quot;id&quot;:{{$value.id}}&quot;&quot;,&quot;slug&quot;:&quot;uncategorized&quot;,&quot;name&quot;:&quot;未分类&quot;});"
                        class="btn btn-info btn-xs">编辑</a>
                    <a href="javascript:deleteTr( 1 );" class="btn btn-danger btn-xs">删除</a>
                </td>
@@ -150,7 +150,7 @@
                     url: 'https://autumnfish.cn/big32/admin/category_search',
                     type: 'get',
                     success: function (backData) {
-                        console.log(backData)
+                        // console.log(backData)
                         var html = template('cate', backData)
                         $('tbody').html(html)
                     }
@@ -176,6 +176,22 @@
                 })
             })
 
+            $('tbody').on('click', '.btn-danger', function () {
+                var id = parseInt($(this).prev().attr('href').replace(/[^0-9]/ig, ""))
+                // console.log(id);
+                $.ajax({
+                    url: 'https://autumnfish.cn/big32/admin/category_delete',
+                    type: 'post',
+                    data: {
+                        id: id
+                    },
+                    success: function (backData) {
+                        console.log(backData);
+                        getCate()
+                    }
+
+                })
+            })
 
         })
 
