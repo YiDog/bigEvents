@@ -147,10 +147,10 @@
         $(function () {
             function getCate() {
                 $.ajax({
-                    url: 'https://autumnfish.cn/big32/admin/category_search',
+                    url: 'http://localhost:8000/admin/category_search',
                     type: 'get',
                     success: function (backData) {
-                        // console.log(backData)
+                        console.log(backData)
                         var html = template('cate', backData)
                         $('tbody').html(html)
                     }
@@ -160,7 +160,7 @@
 
             $('#model_add').click(function () {
                 $.ajax({
-                    url: 'https://autumnfish.cn/big32/admin/category_add',
+                    url: 'http://localhost:8000/admin/category_add',
                     type: 'post',
                     data: {
                         name: $('.cate_name').val(),
@@ -180,18 +180,36 @@
                 var id = parseInt($(this).prev().attr('href').replace(/[^0-9]/ig, ""))
                 // console.log(id);
                 $.ajax({
-                    url: 'https://autumnfish.cn/big32/admin/category_delete',
+                    url: 'http://localhost:8000/admin/category_delete',
                     type: 'post',
                     data: {
                         id: id
                     },
                     success: function (backData) {
-                        console.log(backData);
+                        // console.log(backData);
                         getCate()
                     }
 
                 })
             })
+
+
+            // $('tbody').on('click', '.btn-info', function () {
+            //     var id = parseInt($(this).attr('href').replace(/[^0-9]/ig, ""))
+            //     $.ajax({
+            //         url: 'http://localhost:8000/admin/category_edit',
+            //         type: 'post',
+            //         data: {
+            //             id: id,
+            //             name: $('.cate_name').val(),
+            //             slug: $('.cate_slug').val(),
+            //         },
+            //         success: function (backData) {
+            //             console.log(backData);
+            //             // $('#model_add').click()
+            //         }
+            //     })
+            // })
 
         })
 
